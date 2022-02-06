@@ -1,4 +1,4 @@
-﻿namespace com.mobiquity.packer.Common
+﻿namespace Com.Mobiquity.Packer.Common
 {
     /// <summary>
     /// Constants 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace com.mobiquity.packer.Services
+namespace Com.Mobiquity.Packer.Services
 {
     public interface IFileReader
     {

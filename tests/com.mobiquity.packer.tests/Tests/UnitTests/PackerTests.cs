@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace com.mobiquity.packer.tests
+namespace Com.Mobiquity.Packer.Tests
 {
     [TestFixture]
     public class PackerTests

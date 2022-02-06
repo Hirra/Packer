@@ -1,9 +1,9 @@
-﻿using com.mobiquity.packer.Business.Models;
-using com.mobiquity.packer.Common;
+﻿using Com.Mobiquity.Packer.Business.Models;
+using Com.Mobiquity.Packer.Common;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace com.mobiquity.packer.Services
+namespace Com.Mobiquity.Packer.Services
 {
     /// <summary>
     /// Optimal package items producer

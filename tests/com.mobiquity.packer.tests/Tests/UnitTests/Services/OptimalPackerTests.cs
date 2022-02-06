@@ -1,7 +1,7 @@
-﻿using com.mobiquity.packer.Services;
+﻿using Com.Mobiquity.Packer.Services;
 using NUnit.Framework;
 
-namespace com.mobiquity.packer.tests
+namespace Com.Mobiquity.Packer.Tests
 {
     [TestFixture]
     public class OptimalPackerTests

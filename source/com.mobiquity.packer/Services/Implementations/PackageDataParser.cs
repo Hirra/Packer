@@ -1,15 +1,15 @@
-﻿using com.mobiquity.packer.Business.Models;
-using com.mobiquity.packer.Common;
+﻿using Com.Mobiquity.Packer.Business.Models;
+using Com.Mobiquity.Packer.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace com.mobiquity.packer.Services
+namespace Com.Mobiquity.Packer.Services
 {
     /// <summary>
     /// Package data parser
     /// </summary>
-    /// <seealso cref="com.mobiquity.packer.Services.IParser&lt;com.mobiquity.packer.Business.Models.Package&gt;" />
+    /// <seealso cref="Com.Mobiquity.Packer.Services.IParser&lt;Com.Mobiquity.Packer.Business.Models.Package&gt;" />
     public class PackageDataParser : IParser<Package>
     { 
         /// <summary>

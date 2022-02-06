@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace com.mobiquity.packer.Business.Models
+namespace Com.Mobiquity.Packer.Business.Models
 {
     /// <summary>
     /// Represnt entity containing items of optimal combination to maximize the cost

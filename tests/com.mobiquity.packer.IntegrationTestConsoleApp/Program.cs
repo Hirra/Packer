@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace com.mobiquity.packer.IntegrationTestConsoleApp
+namespace Com.Mobiquity.Packer.IntegrationTestConsoleApp
 {
     public class Program
     {
@@ -8,10 +8,10 @@ namespace com.mobiquity.packer.IntegrationTestConsoleApp
         {
             try
             {
-                var output = Packer.pack(args[0]);
+                var output = Com.Mobiquity.Packer.Packer.pack(args[0]);
                 Environment.Exit(200);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Environment.Exit(500);
             }

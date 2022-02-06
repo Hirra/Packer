@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\source\com.mobiquity.packer\com.mobiquity.packer.csproj" />
+    <ProjectReference Include="..\..\source\com.mobiquity.packer\Com.Mobiquity.Packer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
-﻿using com.mobiquity.packer.Services;
+﻿using Com.Mobiquity.Packer.Services;
 using System;
 
-namespace com.mobiquity.packer
+namespace Com.Mobiquity.Packer
 {
     /// <summary>
     /// 

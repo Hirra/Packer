@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace com.mobiquity.packer.Common
+namespace Com.Mobiquity.Packer.Common
 {
     /// <summary>
     /// Helper 

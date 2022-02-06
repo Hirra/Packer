@@ -1,10 +1,10 @@
-﻿using com.mobiquity.packer.Business.Models;
-using com.mobiquity.packer.Common;
+﻿using Com.Mobiquity.Packer.Business.Models;
+using Com.Mobiquity.Packer.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace com.mobiquity.packer.Services
+namespace Com.Mobiquity.Packer.Services
 {
     /// <summary>
     /// Entry point to logic from consume exposed endpoint
@@ -12,7 +12,7 @@ namespace com.mobiquity.packer.Services
     /// optimial packages calcultion and returning the optimzaed packing information
     /// to consumer endpoint
     /// </summary>
-    /// <seealso cref="com.mobiquity.packer.Services.IPacker" />
+    /// <seealso cref="Com.Mobiquity.Packer.Services.IPacker" />
     public class OptimalPacker : IPacker
     {
         private IFileReader fileReader;
@@ -38,7 +38,7 @@ namespace com.mobiquity.packer.Services
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>optimized packing details </returns>
-        /// <exception cref="com.mobiquity.packer.APIException">
+        /// <exception cref="Com.Mobiquity.Packer.APIException">
         /// No data to parse
         /// or
         /// Error in packing proess

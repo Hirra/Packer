@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace com.mobiquity.packer.Business.Models
+namespace Com.Mobiquity.Packer.Business.Models
 {
     /// <summary>
     /// Items withn a packge

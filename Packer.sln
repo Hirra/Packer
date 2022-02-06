@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "com.mobiquity.packer", "source\com.mobiquity.packer\com.mobiquity.packer.csproj", "{91C24FA6-E3EB-4C44-B08D-8F8D0A832255}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Com.Mobiquity.Packer", "source\com.mobiquity.packer\Com.Mobiquity.Packer.csproj", "{91C24FA6-E3EB-4C44-B08D-8F8D0A832255}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "com.mobiquity.packer.tests", "tests\com.mobiquity.packer.tests\com.mobiquity.packer.tests.csproj", "{1AD59519-0EB3-4539-9603-11E997370072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Com.Mobiquity.Packer.Tests", "tests\com.mobiquity.packer.tests\Com.Mobiquity.Packer.Tests.csproj", "{1AD59519-0EB3-4539-9603-11E997370072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.mobiquity.packer.IntegrationTestConsoleApp", "tests\com.mobiquity.packer.IntegrationTestConsoleApp\com.mobiquity.packer.IntegrationTestConsoleApp.csproj", "{59157F0E-8D93-44AE-BFAF-67D1ED4656D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Com.Mobiquity.Packer.IntegrationTestConsoleApp", "tests\com.mobiquity.packer.IntegrationTestConsoleApp\Com.Mobiquity.Packer.IntegrationTestConsoleApp.csproj", "{59157F0E-8D93-44AE-BFAF-67D1ED4656D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

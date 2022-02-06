@@ -1,11 +1,11 @@
-﻿using com.mobiquity.packer.Business.Models;
-using com.mobiquity.packer.Common;
-using com.mobiquity.packer.Services;
+﻿using Com.Mobiquity.Packer.Business.Models;
+using Com.Mobiquity.Packer.Common;
+using Com.Mobiquity.Packer.Services;
 using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace com.mobiquity.packer.tests
+namespace Com.Mobiquity.Packer.Tests
 {
     [TestFixture]
     public class PackageDataParserTests

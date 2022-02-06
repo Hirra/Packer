@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace com.mobiquity.packer.Business.Models
+namespace Com.Mobiquity.Packer.Business.Models
 {
     /// <summary>
     /// Collection of items to be shipped
