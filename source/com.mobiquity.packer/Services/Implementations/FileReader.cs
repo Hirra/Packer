@@ -1,14 +1,13 @@
-﻿using com.mobiquity.packer.Common;
+﻿using Com.Mobiquity.Packer.Common;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.IO; 
 
-namespace com.mobiquity.packer.Services
+namespace Com.Mobiquity.Packer.Services
 {
     /// <summary>
     /// File reader
     /// </summary>
-    /// <seealso cref="com.mobiquity.packer.Services.IFileReader" />
+    /// <seealso cref="Com.Mobiquity.Packer.Services.IFileReader" />
     public class FileReader : IFileReader
     {
         /// <summary>
@@ -17,7 +16,7 @@ namespace com.mobiquity.packer.Services
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns></returns>
-        /// <exception cref="com.mobiquity.packer.APIException">
+        /// <exception cref="Com.Mobiquity.Packer.APIException">
         /// Invalid file path or invalid i/o operation
         /// </exception>
         public List<string> ReadFile(string filePath)
@@ -31,8 +30,20 @@ namespace com.mobiquity.packer.Services
 
             try
             {
-                var data = File.ReadAllLines(filePath).ToList();
-                return data;
+                List<string> packages = new List<string>();
+
+                using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                using (BufferedStream bs = new BufferedStream(fs))
+                using (StreamReader sr = new StreamReader(bs))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        packages.Add(line);
+                    }
+                }
+
+                return packages;
             }
             catch (IOException e)
             {

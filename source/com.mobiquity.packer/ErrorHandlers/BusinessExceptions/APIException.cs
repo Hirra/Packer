@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace com.mobiquity.packer
+namespace Com.Mobiquity.Packer
 {
+    /// <summary>
+    /// API Exception
+    /// </summary>
     public class APIException : Exception
     {
         public APIException(string message) : base(message)

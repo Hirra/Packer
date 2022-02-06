@@ -1,4 +1,4 @@
-﻿namespace com.mobiquity.packer.Services
+﻿namespace Com.Mobiquity.Packer.Services
 {
     public interface IParser<TResult>
     {

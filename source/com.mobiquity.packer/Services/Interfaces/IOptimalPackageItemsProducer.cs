@@ -1,7 +1,7 @@
-﻿namespace com.mobiquity.packer.Services
+﻿namespace Com.Mobiquity.Packer.Services
 {
     public interface IOptimalPackageItemsProducer<T>
     {
-        public string ProduceOptimalPackingItems(T dataToOptimize);
+        public string ProducePackageItemCombination(T dataToOptimize);
     }
 }

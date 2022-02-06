@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace com.mobiquity.packer.Business.Models
+namespace Com.Mobiquity.Packer.Business.Models
 {
     /// <summary>
     /// Items withn a packge
@@ -11,6 +11,8 @@ namespace com.mobiquity.packer.Business.Models
         public int Index { get; set; }
         public int Weight { get; set; }
         public int Cost { get; set; }
+
+        public int PackageMaxWeightLimit { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -1,10 +1,10 @@
-﻿using com.mobiquity.packer.Business.Models;
-using com.mobiquity.packer.Common;
+﻿using Com.Mobiquity.Packer.Business.Models;
+using Com.Mobiquity.Packer.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace com.mobiquity.packer.Services
+namespace Com.Mobiquity.Packer.Services
 {
     /// <summary>
     /// Entry point to logic from consume exposed endpoint
@@ -12,18 +12,23 @@ namespace com.mobiquity.packer.Services
     /// optimial packages calcultion and returning the optimzaed packing information
     /// to consumer endpoint
     /// </summary>
-    /// <seealso cref="com.mobiquity.packer.Services.IPacker" />
+    /// <seealso cref="Com.Mobiquity.Packer.Services.IPacker" />
     public class OptimalPacker : IPacker
     {
         private IFileReader fileReader;
         private IParser<Package> packageParser;
+        private IValidator<Package> packageValidator;
         private IOptimalPackageItemsProducer<Package> optimalItemsProducer;
 
+        /// <summary>
+        /// OptimalPacker
+        /// </summary>
         public OptimalPacker()
         {
             this.fileReader = new FileReader();
             this.packageParser = new PackageDataParser();
-            this.optimalItemsProducer = new OptimalPackageItemsProducer();
+            this.packageValidator = new PackageValidator();
+            this.optimalItemsProducer = new OptimalPackageItemsCombinationProducer();
         }
 
         /// <summary>
@@ -35,7 +40,7 @@ namespace com.mobiquity.packer.Services
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>optimized packing details </returns>
-        /// <exception cref="com.mobiquity.packer.APIException">
+        /// <exception cref="Com.Mobiquity.Packer.APIException">
         /// No data to parse
         /// or
         /// Error in packing proess
@@ -45,30 +50,24 @@ namespace com.mobiquity.packer.Services
             try
             {
                 List<string> optimizeItemIndexes = new List<string>();
-
-                var packagesStringList = fileReader.ReadFile(filePath);
-                if (!packagesStringList.Any(x => !string.IsNullOrEmpty(x)))
-                {
-                    string errorMessage = "Prodive file path does not contain any content to parse.";
-                    Helper.Logger.Debug(errorMessage);
-                    throw new APIException(errorMessage);
-                }
+                List<string> packagesStringList = ReadFileContents(filePath);
 
                 var optimalPackages = new List<string>();
                 foreach (var package in packagesStringList)
-                {
-                    var packageDto = packageParser.Parse(package);
-                    if (packageDto != null)
+                { 
+                    var packageDto = packageParser.Parse(package); 
+                    if (!packageValidator.IsValid(packageDto))
                     {
-                        var indexes = optimalItemsProducer.ProduceOptimalPackingItems(packageDto);
-                        optimizeItemIndexes.Add(indexes);
-                    }
-                    else
-                    {
+                        Helper.Logger.Debug("Parsed package failed validation"); 
                         optimizeItemIndexes.Add(Constants.DEFULT_PLACEHOLDER_OPTIMAL_INDEXES);
+                        continue;
                     }
-                }
-
+                    else 
+                    {
+                        var indexes = optimalItemsProducer.ProducePackageItemCombination(packageDto);
+                        optimizeItemIndexes.Add(indexes);
+                    } 
+                } 
                 return string.Join("\n", optimizeItemIndexes);
             }
             catch (Exception e)
@@ -79,5 +78,17 @@ namespace com.mobiquity.packer.Services
             }
         }
 
+        private List<string> ReadFileContents(string filePath)
+        {
+            var packagesStringList = fileReader.ReadFile(filePath);
+            if (!packagesStringList.Any(x => !string.IsNullOrEmpty(x)))
+            {
+                string errorMessage = "Prodive file path does not contain any content to parse.";
+                Helper.Logger.Debug(errorMessage);
+                throw new APIException(errorMessage);
+            }
+
+            return packagesStringList;
+        }
     }
 }

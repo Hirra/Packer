@@ -1,9 +1,9 @@
-﻿using com.mobiquity.packer.Business.Models;
-using com.mobiquity.packer.Services;
+﻿using Com.Mobiquity.Packer.Business.Models;
+using Com.Mobiquity.Packer.Services;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace com.mobiquity.packer.tests
+namespace Com.Mobiquity.Packer.Tests
 {
     [TestFixture]
     public class OptimalPackageItemsProducerTests
@@ -13,7 +13,7 @@ namespace com.mobiquity.packer.tests
         [SetUp]
         public void Setup()
         {
-            producer = new OptimalPackageItemsProducer();
+            producer = new OptimalPackageItemsCombinationProducer();
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace com.mobiquity.packer.tests
             };
 
             //Act 
-            var actual = producer.ProduceOptimalPackingItems(package);
+            var actual = producer.ProducePackageItemCombination(package);
 
             //Assert
             Assert.That(actual, Is.EqualTo("4"));
@@ -81,7 +81,7 @@ namespace com.mobiquity.packer.tests
             };
 
             //Act 
-            var actual = producer.ProduceOptimalPackingItems(package);
+            var actual = producer.ProducePackageItemCombination(package);
 
             //Assert
             Assert.That(actual, Is.EqualTo("-"));

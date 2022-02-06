@@ -1,11 +1,11 @@
-﻿using com.mobiquity.packer.Business.Models;
-using com.mobiquity.packer.Common;
-using com.mobiquity.packer.Services;
+﻿using Com.Mobiquity.Packer.Business.Models;
+using Com.Mobiquity.Packer.Common;
+using Com.Mobiquity.Packer.Services;
 using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace com.mobiquity.packer.tests
+namespace Com.Mobiquity.Packer.Tests
 {
     [TestFixture]
     public class PackageDataParserTests
@@ -81,7 +81,7 @@ namespace com.mobiquity.packer.tests
         }
 
         [Test]
-        public void Parse_InvalidPackgeWeightDelimiter_ReturnsNullAsParsedResult()
+        public void Parse_InvalidPackgeWeightDelimiter_PackgeWeightZero()
         {
             //Arrange
             var invalidPackgeWeightDelimeter = "8 $ (1,15.3,€34)";
@@ -90,34 +90,8 @@ namespace com.mobiquity.packer.tests
             var actual = parser.Parse(invalidPackgeWeightDelimeter);
 
             //Assert
-            Assert.That(actual, Is.Null);
-        }
-
-        [Test]
-        public void Parse_PackgeWeightIsZero_ReutrnsNullAsParsedResult()
-        {
-            //Arrange
-            var dataToParse = "0 : (1,15.3,€34)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual, Is.Null);
-        }
-
-        [Test]
-        public void Parse_PackgeWeightExceedMaxLimit_ReutrnsNullAsParsedResult()
-        {
-            //Arrange
-            var dataToParse = "1000 : (1,15.3,€34)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual, Is.Null);
-        }
+            Assert.That(actual.PackgeWeight, Is.EqualTo(0)); 
+        }  
 
         [Test]
         public void Parse_PackgeWeightIsEmpty_ReutrnsNullAsParsedResult()
@@ -129,11 +103,12 @@ namespace com.mobiquity.packer.tests
             var actual = parser.Parse(dataToParse);
 
             //Assert
-            Assert.That(actual, Is.Null);
+            Assert.That(actual.PackgeWeight, Is.EqualTo(0));
+            Assert.That(actual.Items, Is.Null);
         }
 
         [Test]
-        public void Parse_InvalidItemDelimiter_SingleItemInPackage_ReturnsNullAsParsedPackage()
+        public void Parse_InvalidItemDelimiter_SingleItemInPackage_PackgeWithEmptyItemList()
         {
             //Arrange
             var dataToParse = "8 : {1,15.3,€34)";
@@ -142,46 +117,7 @@ namespace com.mobiquity.packer.tests
             var actual = parser.Parse(dataToParse);
 
             //Assert
-            Assert.That(actual, Is.Null);
-        }
-
-        [Test]
-        public void Parse_SingleItemInPackage_ItemCostIsZero_ReturnsNullAsParsedPackage()
-        {
-            //Arrange
-            var dataToParse = "8 : (1,15.3,€0)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual, Is.Null);
-        }
-
-        [Test]
-        public void Parse_SingleItemInPackage_ItemWeightIsZero_ReturnsNullAsParsedPackage()
-        {
-            //Arrange
-            var dataToParse = "8 : (1,0.0,€34)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual, Is.Null);
-        }
-
-        [Test]
-        public void Parse_SingleItemInPackage_ItemIndexIsZero_ReturnsNullAsParsedPackage()
-        {
-            //Arrange
-            var dataToParse = "8 : (0,15.3,€34)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual, Is.Null);
+            Assert.That(actual.Items.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -213,20 +149,7 @@ namespace com.mobiquity.packer.tests
         }
 
         [Test]
-        public void Parse_2ItemsInPackage_OneItemExceedPackageWeightLimit_ReturnedPackgeHasOnlyOneItem()
-        {
-            //Arrange
-            var dataToParse = "81 : (1,53.38,€45) (2,88.62,€98)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual.Items.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Parse_EmptyStringAsItems_ReturnNullAsParsedResult()
+        public void Parse_EmptyStringAsItems_PackgeWithNullAsItem()
         {
             //Arrange
             var dataToParse = "81 : ";
@@ -235,11 +158,11 @@ namespace com.mobiquity.packer.tests
             var actual = parser.Parse(dataToParse);
 
             //Assert
-            Assert.That(actual, Is.Null);
+            Assert.That(actual.Items, Is.Null);
         }
 
         [Test]
-        public void Parse_EmptyAsItems_ReturnNullAsParsedResult()
+        public void Parse_EmptyAsItems_PackgeWithNullAsItem()
         {
             //Arrange
             var dataToParse = "81 : () () ()";
@@ -248,7 +171,7 @@ namespace com.mobiquity.packer.tests
             var actual = parser.Parse(dataToParse);
 
             //Assert
-            Assert.That(actual, Is.Null);
+            Assert.That(actual.Items, Is.Null);
         }
 
         [Test]
@@ -276,46 +199,6 @@ namespace com.mobiquity.packer.tests
             //Assert
             Assert.That(actual.Items.Count, Is.EqualTo(1));
         }
-
-        [Test]
-        public void Parse_2ItemsInPackage_OneItemWithEmptyData_ReturnedPackgeHasOnlyOneItem()
-        {
-            //Arrange
-            var dataToParse = "81 : (1,53.38,€45) (,,)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual.Items.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Parse_2ItemsInPackage_OneItemWithCostExceedingLimit_ReturnedPackgeHasOnlyOneItem()
-        {
-            //Arrange
-            var dataToParse = "81 : (1,53.38,€45) (2,88.62,€101)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual.Items.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Parse_2ItemsInPackage_OneItemWithWeightExceedingLimit_ReturnedPackgeHasOnlyOneItem()
-        {
-            //Arrange
-            var dataToParse = "81 : (1,53.38,€45) (2,10001,€10)";
-
-            //Act
-            var actual = parser.Parse(dataToParse);
-
-            //Assert
-            Assert.That(actual.Items.Count, Is.EqualTo(1));
-        }
-
 
         [Test]
         public void Parse_SingleItemPackge_Contain16Item_OnlyConsiderFirst15_IgnoreRemaining()

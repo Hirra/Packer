@@ -1,5 +1,8 @@
-﻿namespace com.mobiquity.packer.Common
+﻿namespace Com.Mobiquity.Packer.Common
 {
+    /// <summary>
+    /// Constants 
+    /// </summary>
     public static class Constants
     {
         // service constraints

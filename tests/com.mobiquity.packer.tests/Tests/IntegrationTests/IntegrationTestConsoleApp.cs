@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Diagnostics;
 
-namespace com.mobiquity.packer.tests.Tests.IntegrationTests
+namespace Com.Mobiquity.Packer.Tests
 {
     [TestFixture]
     public class IntegrationTestConsoleApp
