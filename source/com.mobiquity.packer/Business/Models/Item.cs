@@ -12,6 +12,8 @@ namespace Com.Mobiquity.Packer.Business.Models
         public int Weight { get; set; }
         public int Cost { get; set; }
 
+        public int PackageMaxWeightLimit { get; set; }
+
         public override bool Equals(object obj)
         {
             if (obj != null && obj.GetType() == this.GetType())

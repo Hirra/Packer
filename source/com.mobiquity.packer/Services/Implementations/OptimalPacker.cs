@@ -17,6 +17,7 @@ namespace Com.Mobiquity.Packer.Services
     {
         private IFileReader fileReader;
         private IParser<Package> packageParser;
+        private IValidator<Package> packageValidator;
         private IOptimalPackageItemsProducer<Package> optimalItemsProducer;
 
         /// <summary>
@@ -26,6 +27,7 @@ namespace Com.Mobiquity.Packer.Services
         {
             this.fileReader = new FileReader();
             this.packageParser = new PackageDataParser();
+            this.packageValidator = new PackageValidator();
             this.optimalItemsProducer = new OptimalPackageItemsCombinationProducer();
         }
 
@@ -48,30 +50,24 @@ namespace Com.Mobiquity.Packer.Services
             try
             {
                 List<string> optimizeItemIndexes = new List<string>();
-
-                var packagesStringList = fileReader.ReadFile(filePath);
-                if (!packagesStringList.Any(x => !string.IsNullOrEmpty(x)))
-                {
-                    string errorMessage = "Prodive file path does not contain any content to parse.";
-                    Helper.Logger.Debug(errorMessage);
-                    throw new APIException(errorMessage);
-                }
+                List<string> packagesStringList = ReadFileContents(filePath);
 
                 var optimalPackages = new List<string>();
                 foreach (var package in packagesStringList)
-                {
-                    var packageDto = packageParser.Parse(package);
-                    if (packageDto != null)
+                { 
+                    var packageDto = packageParser.Parse(package); 
+                    if (!packageValidator.IsValid(packageDto))
+                    {
+                        Helper.Logger.Debug("Parsed package failed validation"); 
+                        optimizeItemIndexes.Add(Constants.DEFULT_PLACEHOLDER_OPTIMAL_INDEXES);
+                        continue;
+                    }
+                    else 
                     {
                         var indexes = optimalItemsProducer.ProducePackageItemCombination(packageDto);
                         optimizeItemIndexes.Add(indexes);
-                    }
-                    else
-                    {
-                        optimizeItemIndexes.Add(Constants.DEFULT_PLACEHOLDER_OPTIMAL_INDEXES);
-                    }
-                }
-
+                    } 
+                } 
                 return string.Join("\n", optimizeItemIndexes);
             }
             catch (Exception e)
@@ -82,5 +78,17 @@ namespace Com.Mobiquity.Packer.Services
             }
         }
 
+        private List<string> ReadFileContents(string filePath)
+        {
+            var packagesStringList = fileReader.ReadFile(filePath);
+            if (!packagesStringList.Any(x => !string.IsNullOrEmpty(x)))
+            {
+                string errorMessage = "Prodive file path does not contain any content to parse.";
+                Helper.Logger.Debug(errorMessage);
+                throw new APIException(errorMessage);
+            }
+
+            return packagesStringList;
+        }
     }
 }

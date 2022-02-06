@@ -11,7 +11,14 @@ namespace Com.Mobiquity.Packer.Services
     /// </summary>
     /// <seealso cref="Com.Mobiquity.Packer.Services.IParser&lt;Com.Mobiquity.Packer.Business.Models.Package&gt;" />
     public class PackageDataParser : IParser<Package>
-    { 
+    {
+        private IValidator<Item> itemValidator;
+
+        public PackageDataParser()
+        {
+            this.itemValidator = new ItemValidator();
+        }
+
         /// <summary>
         /// Parses the received string data into packge dto.
         /// </summary>
@@ -21,37 +28,18 @@ namespace Com.Mobiquity.Packer.Services
         {
             if (string.IsNullOrWhiteSpace(data))
             {
-                Helper.Logger.Debug("Package details missing");
+                Helper.Logger.Debug("Empty package");
                 return null;
             }
-
             var dataToParse = data.Split(Constants.PACKAGE_WEIGHT_DELIMITER);
 
-            var packageWeightLimit = ParsePackageWeight(dataToParse[0]);
-            if (packageWeightLimit == 0)
+            var packageDto = new Package();
+            packageDto.PackgeWeight = ParsePackageWeight(dataToParse[0]);
+            if (packageDto.PackgeWeight > 0)
             {
-                Helper.Logger.Debug("Package weight is zero, removed from further processing");
-                return null;
-            }
-
-            if (packageWeightLimit > (Constants.PACKAGE_WEIGHT_LIMIT * (int)Math.Pow(10, Constants.DECIMAL_PALCES_TO_ROUND)))
-            {
-                Helper.Logger.Debug("Package exceed allowed maximum weight limit per package, removed from further processing");
-                return null;
-            }
-
-            var packageItems = ParsePackgeItems(dataToParse[1], packageWeightLimit);
-            if (packageItems == null || !packageItems.Any())
-            {
-                Helper.Logger.Debug("No items found to pack, removed from further processing");
-                return null;
-            }
-
-            return new Package
-            {
-                PackgeWeight = packageWeightLimit,
-                Items = packageItems
-            };
+                packageDto.Items = ParsePackgeItems(dataToParse[1], packageDto.PackgeWeight);
+            }  
+            return packageDto;
         }
 
         /// <summary>
@@ -104,9 +92,11 @@ namespace Com.Mobiquity.Packer.Services
 
             foreach (var itemString in itemsToParse)
             {
-                var item = PasrePackageItem(itemString);
-                if (ValidItem(item, packageWeightLimit))
+                var item = PasrePackageItem(itemString, packageWeightLimit); 
+                if (itemValidator.IsValid(item))
+                {
                     items.Add(item);
+                }                    
             }
 
             return items
@@ -119,7 +109,7 @@ namespace Com.Mobiquity.Packer.Services
         /// </summary>
         /// <param name="itemString"></param>
         /// <returns cref="Item"></returns>
-        private Item PasrePackageItem(string itemString)
+        private Item PasrePackageItem(string itemString ,int packageWeightLimit)
         {
             var itemProperties = itemString.Split(Constants.ITEM_PROPERTIES_DELIMITER);
             if (itemProperties.Length == 0)
@@ -151,41 +141,9 @@ namespace Com.Mobiquity.Packer.Services
                 item.Cost = cost;
             }
 
+            item.PackageMaxWeightLimit = packageWeightLimit;
+
             return item;
-        }
-
-        /// <summary>
-        /// Valid item data
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="packageWeightLimit"></param>
-        /// <returns cref="bool"></returns>
-        private bool ValidItem(Item item, int packageWeightLimit)
-        {
-            if (item is null || item.Index <= 0 || item.Weight <= 0 || item.Cost <= 0)
-            {
-                return false;
-            }
-
-            if (item.Weight > (Constants.ITEM_WEIGHT_LIMIT) * (int)Math.Pow(10, Constants.DECIMAL_PALCES_TO_ROUND))
-            {
-                Helper.Logger.Debug("Item weight exceeds the allowed item weight limit, this item will be not be considered for packing");
-                return false;
-            }
-
-            if (item.Weight > packageWeightLimit)
-            {
-                Helper.Logger.Debug("Item weight exceeds the package weight limit, this item will not be considered for packing");
-                return false;
-            }
-
-            if (item.Cost > Constants.ITEM_COST_LIMIT)
-            {
-                Helper.Logger.Debug("Item cost exceeds the allowed item cost limit, this item will be not be considered for packing");
-                return false;
-            }
-
-            return true;
         }
     }
 }

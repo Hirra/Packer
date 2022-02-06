@@ -1,7 +1,6 @@
 ﻿using Com.Mobiquity.Packer.Common;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.IO; 
 
 namespace Com.Mobiquity.Packer.Services
 {
@@ -31,8 +30,20 @@ namespace Com.Mobiquity.Packer.Services
 
             try
             {
-                var data = File.ReadAllLines(filePath).ToList();
-                return data;
+                List<string> packages = new List<string>();
+
+                using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                using (BufferedStream bs = new BufferedStream(fs))
+                using (StreamReader sr = new StreamReader(bs))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        packages.Add(line);
+                    }
+                }
+
+                return packages;
             }
             catch (IOException e)
             {
