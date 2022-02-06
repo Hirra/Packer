@@ -1,20 +1,21 @@
 # Packer
 
-A .Net core 3.1 library that provides endpoint to calculating the cost effective combination of items for a package.
+A .Net core 3.1 library tproject hat provides endpoint for calculating the cost effective combination of items for a package using dynamic proogramming approach to 0/1 knapsack problem algo
 
 ## Installation
-Dowloand the code as zip.
+Dowloand the code as zip
 Open the solution in Visual Studio by double clicking the solution file in the folder
 
 ## Usage
-Test coonsole application is provided with the solution to test the library.
+Test console application is provided with the solution to test the library
 Set the console application as startup project
 In its main method provide absolute path to the file containing test data
 Generated result output to console
 
 ## Sample Input 
-API endpoint accepts absolute path to a file which contains mulitple entries.Each line represents a package containing items.
-Each item consist of its index, weight and price. Value at start of line represnts package weight limit. 
+API endpoint accepts absolute path to a file which contains mulitple entries.Each line represents a package containing items
+Each item consist of its index, weight and price
+Value at start of line represnts package weight limit
 Following is the sample input of file which the library Endpoint accepts
 
 8 : (1,6.3,€34)
