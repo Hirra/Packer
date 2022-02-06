@@ -46,7 +46,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\source\com.mobiquity.packer\Com.Mobiquity.Packer.csproj" />
-    <ProjectReference Include="..\com.mobiquity.packer.IntegrationTestConsoleApp\Com.Mobiquity.Packer.IntegrationTestConsoleApp.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,15 +6,11 @@ namespace Com.Mobiquity.Packer.IntegrationTestConsoleApp
     {
         public static void Main(string[] args)
         {
-            try
-            {
-                var output = Com.Mobiquity.Packer.Packer.pack(args[0]);
-                Environment.Exit(200);
-            }
-            catch (Exception)
-            {
-                Environment.Exit(500);
-            }
+        
+            //absolute file path to a file on system
+            var filePath = @"C:\temp\test_file";
+            var output = Com.Mobiquity.Packer.Packer.pack(filePath); 
+            Console.WriteLine(output);
         }
     }
 }
