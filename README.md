@@ -1,6 +1,6 @@
 # Packer
 
-A .Net core 3.1 library tproject hat provides endpoint for calculating the cost effective combination of items for a package using dynamic proogramming approach to 0/1 knapsack problem algo
+A .Net core 3.1 library project that provides endpoint for calculating the cost effective combination of items for a package using dynamic proogramming approach to 0/1 knapsack problem algo
 
 ## Installation
 Dowloand the code as zip
@@ -29,10 +29,4 @@ For the above sample input following will be returned by the endpoint
 
 2,7
 
-## Credits
 
-TODO: Write credits
-
-## License
-
-TODO: Write license
