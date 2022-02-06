@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "com.mobiquity.packer", "sou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "com.mobiquity.packer.tests", "tests\com.mobiquity.packer.tests\com.mobiquity.packer.tests.csproj", "{1AD59519-0EB3-4539-9603-11E997370072}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.mobiquity.packer.IntegrationTestConsoleApp", "tests\com.mobiquity.packer.IntegrationTestConsoleApp\com.mobiquity.packer.IntegrationTestConsoleApp.csproj", "{59157F0E-8D93-44AE-BFAF-67D1ED4656D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1AD59519-0EB3-4539-9603-11E997370072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AD59519-0EB3-4539-9603-11E997370072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AD59519-0EB3-4539-9603-11E997370072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59157F0E-8D93-44AE-BFAF-67D1ED4656D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59157F0E-8D93-44AE-BFAF-67D1ED4656D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59157F0E-8D93-44AE-BFAF-67D1ED4656D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59157F0E-8D93-44AE-BFAF-67D1ED4656D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
