@@ -5,22 +5,25 @@ using System.Linq;
 
 namespace com.mobiquity.packer.Services
 {
-    public class OptimalPackageItemsProducer : IOptimalPackageItemsProducer<Package>
+    /// <summary>
+    /// Optimal package items producer
+    /// </summary>
+    public class OptimalPackageItemsCombinationProducer : IOptimalPackageItemsProducer<Package>
     {
         /// <summary>
         /// Produces the optimal packing items.
         /// 0/1 Knapsack Problem Using Dynamic Programming - is used as logic based to calculat the cost optimal combination of packing items 
         /// </summary>
         /// <param name="dataToOptimize">The data to optimize.</param>
-        /// <returns></returns>
-        public string ProduceOptimalPackingItems(Package dataToOptimize)
+        /// <returns cref="string"></returns>
+        public string ProducePackageItemCombination(Package dataToOptimize)
         {
             var package = dataToOptimize;
 
             if (package.Items == null || !package.Items.Any())
             {
 
-                Helper.Logger.Debug("Package does not contain any items, existing optimal items packing calculation");
+                Helper.Logger.Debug("Package does not contain any items, exiting optimal items packing calculation");
                 return Constants.DEFULT_PLACEHOLDER_OPTIMAL_INDEXES;
             }
 
@@ -64,7 +67,7 @@ namespace com.mobiquity.packer.Services
 
         /// <summary>
         /// Optimize package items combination for maximum cost
-        /// traverse the matrix and updated the cells based on knapsack problem alogithemtic solution using dynamic programming apporach to resolve it
+        /// Traverse the matrix and updated the cells based on knapsack problem alogithemtic solution using dynamic programming apporach to resolve it
         /// </summary>
         /// <param name="package">The package.</param>
         /// <param name="maxItemIndex">Maximum no. of the item.</param>

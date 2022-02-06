@@ -3,6 +3,9 @@ using System;
 
 namespace com.mobiquity.packer
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Packer
     {
         /// <summary>
@@ -13,9 +16,9 @@ namespace com.mobiquity.packer
         }
 
         /// <summary>
-        /// Endpoint for consumer
+        /// API enpoint expose for consumer.For calcualting the optimal combinations for each packge in packge list
         /// </summary>
-        /// <param name="filePath">The file path.</param>
+        /// <param name="filePath">The file path. File contains a list of packages to optimize</param>
         /// <returns></returns>
         /// <exception cref="com.mobiquity.packer.APIException"></exception>
         public static string pack(string filePath)

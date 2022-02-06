@@ -3,10 +3,19 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace com.mobiquity.packer.Common
 {
+    /// <summary>
+    /// Helper 
+    /// </summary>
     public static class Helper
     {
         public static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// Create a deep copy of provided object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public static T DeepCopy<T>(T item)
         {
             BinaryFormatter formatter = new BinaryFormatter();

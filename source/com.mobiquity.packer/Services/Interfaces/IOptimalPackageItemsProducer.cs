@@ -2,6 +2,6 @@
 {
     public interface IOptimalPackageItemsProducer<T>
     {
-        public string ProduceOptimalPackingItems(T dataToOptimize);
+        public string ProducePackageItemCombination(T dataToOptimize);
     }
 }

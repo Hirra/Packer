@@ -13,7 +13,7 @@ namespace com.mobiquity.packer.tests
         [SetUp]
         public void Setup()
         {
-            producer = new OptimalPackageItemsProducer();
+            producer = new OptimalPackageItemsCombinationProducer();
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace com.mobiquity.packer.tests
             };
 
             //Act 
-            var actual = producer.ProduceOptimalPackingItems(package);
+            var actual = producer.ProducePackageItemCombination(package);
 
             //Assert
             Assert.That(actual, Is.EqualTo("4"));
@@ -81,7 +81,7 @@ namespace com.mobiquity.packer.tests
             };
 
             //Act 
-            var actual = producer.ProduceOptimalPackingItems(package);
+            var actual = producer.ProducePackageItemCombination(package);
 
             //Assert
             Assert.That(actual, Is.EqualTo("-"));

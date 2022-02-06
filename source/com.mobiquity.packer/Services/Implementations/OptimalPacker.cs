@@ -19,11 +19,14 @@ namespace com.mobiquity.packer.Services
         private IParser<Package> packageParser;
         private IOptimalPackageItemsProducer<Package> optimalItemsProducer;
 
+        /// <summary>
+        /// OptimalPacker
+        /// </summary>
         public OptimalPacker()
         {
             this.fileReader = new FileReader();
             this.packageParser = new PackageDataParser();
-            this.optimalItemsProducer = new OptimalPackageItemsProducer();
+            this.optimalItemsProducer = new OptimalPackageItemsCombinationProducer();
         }
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace com.mobiquity.packer.Services
                     var packageDto = packageParser.Parse(package);
                     if (packageDto != null)
                     {
-                        var indexes = optimalItemsProducer.ProduceOptimalPackingItems(packageDto);
+                        var indexes = optimalItemsProducer.ProducePackageItemCombination(packageDto);
                         optimizeItemIndexes.Add(indexes);
                     }
                     else
