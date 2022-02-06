@@ -290,6 +290,47 @@ namespace com.mobiquity.packer.tests
             Assert.That(actual.Items.Count, Is.EqualTo(1));
         }
 
+        [Test]
+        public void Parse_2ItemsInPackage_OneItemWithCostExceedingLimit_ReturnedPackgeHasOnlyOneItem()
+        {
+            //Arrange
+            var dataToParse = "81 : (1,53.38,€45) (2,88.62,€101)";
+
+            //Act
+            var actual = parser.Parse(dataToParse);
+
+            //Assert
+            Assert.That(actual.Items.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Parse_2ItemsInPackage_OneItemWithWeightExceedingLimit_ReturnedPackgeHasOnlyOneItem()
+        {
+            //Arrange
+            var dataToParse = "81 : (1,53.38,€45) (2,10001,€10)";
+
+            //Act
+            var actual = parser.Parse(dataToParse);
+
+            //Assert
+            Assert.That(actual.Items.Count, Is.EqualTo(1));
+        }
+
+
+        [Test]
+        public void Parse_SingleItemPackge_Contain16Item_OnlyConsiderFirst15_IgnoreRemaining()
+        {
+            //Arrange
+            var dataToParse = " 96 : (1,90.72,€13) (2,33.80,€40) (3,43.15,€10) (4,37.97,€16) (5,46.81,€36) (6,48.77,€79) (7,81.80,€45) (8,19.36,€79) (9,6.76,€64)  (10,85.31,€29) (11,14.55,€74) (12,3.98,€16) (13,26.24,€55) (14,63.69,€52) (15,76.25,€75) (16,75.25,€76)";
+
+            //Act
+            var actual = parser.Parse(dataToParse);
+
+            //Assert
+            Assert.That(actual.Items.Count, Is.EqualTo(15));
+            Assert.That(actual.Items.LastOrDefault().Index, Is.EqualTo(15));
+        }
+       
         [TearDown]
         public void TearDown()
         {
